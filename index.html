@@ -2,16 +2,43 @@
 <html ng-app>
 	<head>
 		<title>Duck clicker!</title>
-		<link href="index.css" type = "text/css" rel = "stylesheet">
 		<script type="text/javascript" src="./angular.min.js"></script>
 		<script>
 
-			function duckcontroller($scope) {
+			function duckcontroller($scope,$timeout, $browser) {
+				$scope.hasStarted = false;
 				$scope.text = "WELCOME TO DUCK CLICKER!";
+
 
 				$scope.start = function(){
 					$scope.started = "Started!"
+					$scope.hasStarted = true;
+					$scope.clicked = false;
+					$scope.canShow = false;
+					$scope.setTimeOut1();
+
 				}
+
+				$scope.shouldItShow = function(){
+					return $scope.hasStarted && !$scope.hasClicked && $scope.canShow;
+				}
+
+				$scope.youClicked = function(){
+					console.log("clicked");
+					$scope.hasClicked = true;
+				}
+
+
+				
+
+				$scope.setTimeOut1 = function(){
+					console.log("setTimeOut1");
+					$scope.canShow = !$scope.canShow;
+					$scope.hasClicked = false;
+					$timeout($scope.setTimeOut1, 1500);
+				}
+
+
 
 			}
 		</script>
@@ -19,8 +46,9 @@
 	<body>
 		<div ng-controller="duckcontroller" align=center>
 			<div>{{text}}</div>
-			<button ng-click="start()">Click to Start!</button>
+			<button ng-click="start()" ng-show="!hasStarted">Click to Start!</button>
 			<div>{{started}}</div>
+			<timer interval="1000"><img ng-click="youClicked()" ng-show="shouldItShow()"  width = "100" src = "duck.gif"></timer>
 		</div>
 	</body>
 </html>
