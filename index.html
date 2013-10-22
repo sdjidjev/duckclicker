@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app>
+	<head>
+		<title>Duck clicker!</title>
+		<link href="index.css" type = "text/css" rel = "stylesheet">
+		<script type="text/javascript" src="./angular.min.js"></script>
+		<script>
+
+			function duckcontroller($scope) {
+				$scope.text = "WELCOME TO DUCK CLICKER!";
+
+				$scope.start = function(){
+					$scope.started = "Started!"
+				}
+
+			}
+		</script>
+	</head>
+	<body>
+		<div ng-controller="duckcontroller" align=center>
+			<div>{{text}}</div>
+			<button ng-click="start()">Click to Start!</button>
+			<div>{{started}}</div>
+		</div>
+	</body>
+</html>
